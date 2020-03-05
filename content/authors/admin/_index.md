@@ -1,48 +1,47 @@
 ---
 authors:
 - admin
-bio: My research interests include distributed robotics, mobile computing and programmable
-  matter.
+bio: My main interest is to use programming languages and mathematical modeling to answer ecological questions.
 education:
   courses:
-  - course: PhD in Artificial Intelligence
-    institution: Stanford University
-    year: 2012
-  - course: MEng in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2009
-  - course: BSc in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2008
-email: ""
+  - course:  PhD in Ecology and Conservation
+    institution: Federal University of Paraná - UFPR
+    year: 2019
+  - course:  Msc in Botany
+    institution: Federal University of Paraná - UFPR
+    year: 2015
+  - course: BSc in Biological Science
+    institution: University of Vale do Paraíba - UNIVAP
+    year: 2013
+email: "allan.baptista@gmail.com"
 interests:
-- Artificial Intelligence
-- Computational Linguistics
-- Information Retrieval
-name: Nelson Bighetti
+- Ecology
+- Evolution
+- Botany
+- Programming
+- Data science
+- Reproducible research
+- Education
+name: Allan M. S. B. de Alvarenga
 organizations:
-- name: Stanford University
+- name: ""
   url: ""
-role: Professor of Artificial Intelligence
+role: 
 social:
 - icon: envelope
   icon_pack: fas
   link: '#contact'
 - icon: twitter
   icon_pack: fab
-  link: https://twitter.com/GeorgeCushen
+  link: https://twitter.com/AllanSAlvarenga
 - icon: google-scholar
   icon_pack: ai
-  link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
+  link: https://scholar.google.com.br/citations?user=4MJaG5EAAAAJ&hl=pt-BR
 - icon: github
   icon_pack: fab
-  link: https://github.com/gcushen
+  link: https://github.com/allan296
 superuser: true
 user_groups:
 - Researchers
 - Visitors
 ---
-
-Nelson Bighetti is a professor of artificial intelligence at the Stanford AI Lab. His research interests include distributed robotics, mobile computing and programmable matter. He leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
