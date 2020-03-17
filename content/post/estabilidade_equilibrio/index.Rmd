@@ -1,0 +1,58 @@
+---
+title: Estabilidade em sistemas dinâmicos
+author: Paulo Inácio Prado
+date: '2020-03-16'
+slug: estabilidade_sis_din
+categories:
+  - Community ecology
+  - Ecologia de comunidades
+tags:
+  - sistemas_dinâmicos
+  - crescimento logistico
+  - lotka-volterra
+  - cálculo
+  - derivada
+  - equação diferencial
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-03-16T18:18:19-03:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+# Modelo logístico
+
+Vamos fazer a análise de estabilidade da conhecida equação logística de crescimento populacional:
+
+$$
+V=r N\left(1-\frac{N}{K}\right)
+$$
+Onde $V$ é a velocidade de crescimento da população, $r$ é a taxa intrínseca de crescimento populacional, e $K$ a capacidade de suporte.
+
+# Equilibrio na logística
+
+A pergunta básica da análise de estabilidade em sistemas dinâmicos é se há **pontos de equilíbrio** estáveis. No caso da logística, estes pontos de equilíbrio são tamanhos populacionais. Mas primeiro vamos definir equilíbrio:
+
+O tamanho populacional em equilíbrio é aquele em que a velocidade de crescimento é nula, ou seja em que
+
+$$
+\frac{d N}{d t}=0
+$$
+Há dois tamanhos populacionais que satisfazem esta condição para a equação logística:
+
+$N = K$
+
+$N = 0$
+
+Estes tamanhos em equilíbrio fazem sentido biológico: a população não cresce quando chega à capacidade de suporte ou, trivialmente, quando está vazia.
+
+# Estabilidade da logística
+
+Algum destes pontos de equilíbrio são estáveis? Vamos experimentar com um novo gráfico, mas antes precisamos definir de que estabilidade estamos falando:
+
+Um tamanho populacional em equilíbrio é **localmente** estável se a população retorna a ele após uma pequena perturbação. Uma pequena perturbação é um pequeno acréscimo ou redução do tamanho populacional. 
+

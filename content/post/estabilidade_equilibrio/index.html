@@ -1,0 +1,54 @@
+---
+title: Estabilidade em sistemas dinâmicos
+author: Paulo Inácio Prado
+date: '2020-03-16'
+slug: estabilidade_sis_din
+categories:
+  - Community ecology
+  - Ecologia de comunidades
+tags:
+  - sistemas_dinâmicos
+  - crescimento logistico
+  - lotka-volterra
+  - cálculo
+  - derivada
+  - equação diferencial
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-03-16T18:18:19-03:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+<div id="modelo-logístico" class="section level1">
+<h1>Modelo logístico</h1>
+<p>Vamos fazer a análise de estabilidade da conhecida equação logística de crescimento populacional:</p>
+<p><span class="math display">\[
+V=r N\left(1-\frac{N}{K}\right)
+\]</span>
+Onde <span class="math inline">\(V\)</span> é a velocidade de crescimento da população, <span class="math inline">\(r\)</span> é a taxa intrínseca de crescimento populacional, e <span class="math inline">\(K\)</span> a capacidade de suporte.</p>
+</div>
+<div id="equilibrio-na-logística" class="section level1">
+<h1>Equilibrio na logística</h1>
+<p>A pergunta básica da análise de estabilidade em sistemas dinâmicos é se há <strong>pontos de equilíbrio</strong> estáveis. No caso da logística, estes pontos de equilíbrio são tamanhos populacionais. Mas primeiro vamos definir equilíbrio:</p>
+<p>O tamanho populacional em equilíbrio é aquele em que a velocidade de crescimento é nula, ou seja em que</p>
+<p><span class="math display">\[
+\frac{d N}{d t}=0
+\]</span>
+Há dois tamanhos populacionais que satisfazem esta condição para a equação logística:</p>
+<p><span class="math inline">\(N = K\)</span></p>
+<p><span class="math inline">\(N = 0\)</span></p>
+<p>Estes tamanhos em equilíbrio fazem sentido biológico: a população não cresce quando chega à capacidade de suporte ou, trivialmente, quando está vazia.</p>
+</div>
+<div id="estabilidade-da-logística" class="section level1">
+<h1>Estabilidade da logística</h1>
+<p>Algum destes pontos de equilíbrio são estáveis? Vamos experimentar com um novo gráfico, mas antes precisamos definir de que estabilidade estamos falando:</p>
+<p>Um tamanho populacional em equilíbrio é <strong>localmente</strong> estável se a população retorna a ele após uma pequena perturbação. Uma pequena perturbação é um pequeno acréscimo ou redução do tamanho populacional.</p>
+</div>
