@@ -1,0 +1,108 @@
+---
+title: Manipulação de dados com dplyr
+author: Allan Alvarenga
+date: '2020-03-17'
+slug: dplyr
+draft: false
+categories:
+  - data wrangling
+  - manipulação de dados
+tags:
+  - dplyr
+  - tidyverse
+  - R
+subtitle: ''
+summary: 'As operações mais comuns como adicionar colunas, filtrar dados ou criar um subconjunto de dados a partir de um conjunto maior podem ser realizadas através das funções *mutate*, *filter* e *select* respectivamente. Estãs estão contidas no pacote **dplyr**, que faz parte da coleção de pacotes **tidyverse**. Além disso, podemos utilizar o operador pipe %>% para enviar os resultados de uma função para outra.'
+authors: []
+lastmod: '2020-03-17T12:38:34-03:00'
+featured: yes
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: yes
+projects: []
+---
+
+
+
+<ul>
+<li><p>Para adicionar ou modificar um coluna na tabela de dados nós usamos a função mutate().</p></li>
+<li><p>Para filtrar os dados, criando subconjuntos pelos valores das linhas utilizamos a função filter().</p></li>
+<li><p>Para criar subconjuntos de dados selecionando colunas específicas, nós utilizamos a função select().</p></li>
+<li><p>Nós podemos executar uma série de operações enviando os resultados de uma função para outra através do operador %&gt;%.</p></li>
+</ul>
+<div id="instalando-e-carregando-o-pacote-dplyr" class="section level1">
+<h1>Instalando e carregando o pacote dplyr</h1>
+<pre class="r"><code># Instale o pacote caso ja não o tenha.
+# install.packages(&quot;dplyr&quot;)
+# Carrega o pacote
+library(dplyr)</code></pre>
+<p>Vamos usar a base de dados <em>“murders”</em> do pacote dslabs.</p>
+<pre class="r"><code>library(dslabs)
+data(&quot;murders&quot;) </code></pre>
+<p>Vamos verificar o conteúdo do data frame:</p>
+<pre class="r"><code>head(murders) </code></pre>
+<pre><code>##        state abb region population total
+## 1    Alabama  AL  South    4779736   135
+## 2     Alaska  AK   West     710231    19
+## 3    Arizona  AZ   West    6392017   232
+## 4   Arkansas  AR  South    2915918    93
+## 5 California  CA   West   37253956  1257
+## 6   Colorado  CO   West    5029196    65</code></pre>
+</div>
+<div id="alterar-ou-adicionar-colunas" class="section level1">
+<h1>Alterar ou adicionar colunas</h1>
+<p>Com a função <em>mutate</em>, vamos adicionar uma nova coluna ao data frame:</p>
+<pre class="r"><code>murders &lt;- mutate(murders, rate = total / population * 100000)</code></pre>
+<p>O data frame “murders” recebe uma nova coluna chamada “rate” que recebe o total dividido pela população e multiplicado por 100,0000.</p>
+<p>Agora conferimos se a nova coluna foi adicionada com a função <code>head</code> novamente:</p>
+<pre class="r"><code>head(murders) </code></pre>
+<pre><code>##        state abb region population total     rate
+## 1    Alabama  AL  South    4779736   135 2.824424
+## 2     Alaska  AK   West     710231    19 2.675186
+## 3    Arizona  AZ   West    6392017   232 3.629527
+## 4   Arkansas  AR  South    2915918    93 3.189390
+## 5 California  CA   West   37253956  1257 3.374138
+## 6   Colorado  CO   West    5029196    65 1.292453</code></pre>
+<p>E voilá!</p>
+</div>
+<div id="filtrar-os-dados" class="section level1">
+<h1>Filtrar os dados</h1>
+<p>A função <code>select</code> seleciona as colunas|variáveis.</p>
+<pre class="r"><code>new_table &lt;- select(murders, state, region, rate)
+head(new_table)</code></pre>
+<pre><code>##        state region     rate
+## 1    Alabama  South 2.824424
+## 2     Alaska   West 2.675186
+## 3    Arizona   West 3.629527
+## 4   Arkansas  South 3.189390
+## 5 California   West 3.374138
+## 6   Colorado   West 1.292453</code></pre>
+<p>A função <code>filter</code> seleciona as linhas|observações.</p>
+<pre class="r"><code>new_table_2 &lt;-filter(new_table, rate &lt;= 0.71)
+# Selecionamos somente as observações com taxas menores ou iguais a 0.71
+head(new_table_2)</code></pre>
+<pre><code>##           state        region      rate
+## 1        Hawaii          West 0.5145920
+## 2          Iowa North Central 0.6893484
+## 3 New Hampshire     Northeast 0.3798036
+## 4  North Dakota North Central 0.5947151
+## 5       Vermont     Northeast 0.3196211</code></pre>
+</div>
+<div id="usando-o-pipe" class="section level1">
+<h1>Usando o pipe</h1>
+<p>O operador pipe facilita a leitura do código. Nós podemos escrever o código de uma maneira que ele pareça como uma descrição do que queremos fazer sem objetos intermediários:</p>
+<p>Dados originais <span class="math inline">\(\rightarrow\)</span> select <span class="math inline">\(\rightarrow\)</span> filter</p>
+<pre class="r"><code>murders %&gt;%
+  select(state, region, rate) %&gt;%
+  filter(rate &lt;= 0.71)</code></pre>
+<pre><code>##           state        region      rate
+## 1        Hawaii          West 0.5145920
+## 2          Iowa North Central 0.6893484
+## 3 New Hampshire     Northeast 0.3798036
+## 4  North Dakota North Central 0.5947151
+## 5       Vermont     Northeast 0.3196211</code></pre>
+<p>{{% alert note %}}
+Note que nós podemos escrever <code>population</code> ao invés de <code>murders$population</code>. A função mutate sabe que queremos as colunas do data frame murders.
+{{% /alert %}}</p>
+</div>

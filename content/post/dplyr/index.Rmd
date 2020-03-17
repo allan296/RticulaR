@@ -1,0 +1,101 @@
+---
+title: Manipulação de dados com dplyr
+author: Allan Alvarenga
+date: '2020-03-17'
+slug: dplyr
+draft: false
+categories:
+  - data wrangling
+  - manipulação de dados
+tags:
+  - dplyr
+  - tidyverse
+  - R
+subtitle: ''
+summary: 'As operações mais comuns como adicionar colunas, filtrar dados ou criar um subconjunto de dados a partir de um conjunto maior podem ser realizadas através das funções *mutate*, *filter* e *select* respectivamente. Estãs estão contidas no pacote **dplyr**, que faz parte da coleção de pacotes **tidyverse**. Além disso, podemos utilizar o operador pipe %>% para enviar os resultados de uma função para outra.'
+authors: []
+lastmod: '2020-03-17T12:38:34-03:00'
+featured: yes
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: yes
+projects: []
+---
+
+
+* Para adicionar ou modificar um coluna na tabela de dados nós usamos a função mutate().
+
+* Para filtrar os dados, criando subconjuntos pelos valores das linhas utilizamos a função filter().
+
+* Para criar subconjuntos de dados selecionando colunas específicas, nós utilizamos a função select().
+
+* Nós podemos executar uma série de operações enviando os resultados de uma função para outra através do operador %>%.
+
+
+
+# Instalando e carregando o pacote dplyr
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, results='hide'}
+# Instale o pacote caso ja não o tenha.
+# install.packages("dplyr")
+# Carrega o pacote
+library(dplyr)
+```
+Vamos usar a base de dados *"murders"* do pacote dslabs.
+```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, results='hide'}
+
+library(dslabs)
+data("murders") 
+
+```
+Vamos verificar o conteúdo do data frame:
+```{r echo=TRUE}
+head(murders) 
+```
+# Alterar ou adicionar colunas
+
+Com a função *mutate*, vamos adicionar uma nova coluna ao data frame:
+```{r echo=TRUE, results='hide'}
+murders <- mutate(murders, rate = total / population * 100000)
+```
+O data frame "murders" recebe uma nova coluna chamada "rate" que recebe o total dividido pela população e multiplicado por 100,0000.
+
+Agora conferimos se a nova coluna foi adicionada com a função `head` novamente:
+```{r echo=TRUE}
+head(murders) 
+```
+E voilá!
+
+# Filtrar os dados
+
+A função `select` seleciona as colunas|variáveis.
+
+```{r echo=TRUE}
+new_table <- select(murders, state, region, rate)
+head(new_table)
+```
+
+A função `filter` seleciona as linhas|observações.
+
+```{r}
+new_table_2 <-filter(new_table, rate <= 0.71)
+# Selecionamos somente as observações com taxas menores ou iguais a 0.71
+head(new_table_2)
+```
+
+# Usando o pipe
+
+O operador pipe facilita a leitura do código. Nós podemos escrever o código de uma maneira que ele pareça como uma descrição do que queremos fazer sem objetos intermediários:
+
+Dados originais $\rightarrow$ select $\rightarrow$ filter
+
+```{r}
+murders %>%
+  select(state, region, rate) %>%
+  filter(rate <= 0.71)
+```
+
+{{% alert note %}}
+Note que nós podemos escrever `population` ao invés de `murders$population`. A função mutate sabe que queremos as colunas do data frame murders.
+{{% /alert %}}
