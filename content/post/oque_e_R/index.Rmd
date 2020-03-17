@@ -20,15 +20,20 @@ image:
   preview_only: no
 projects: []
 ---
+```{r include=FALSE}
+
+library(fontawesome)
+```
 
 # O que é o R?
 
 O [R](https://www.r-project.org/) é uma linguagem e um ambiente que disponibiliza uma grande variedade de técnicas estatísticas (modelos lineares e não lineares, testes estatítsicos clássicos, análises temporais, entre outros) e gráficas. Existem diversos motivos para você utilizá-lo, vou citar os 5 principais: Gratuidade, alta popularidade, alto poder e grande suporte.
 
 ## 1) É e sempre será gratuito :heart:
-```{r}
 
-```
+
+![Projeto GNU logo](gnu.png)
+
 
 O R é gratuito para instalar, usar, atualizar, modificar e distribuir e estudar. Diferentemente de outros (e.g. SAS, SPSS), esse software faz parte de um [projeto GNU](http://www.gnu.org/), isso significa que o R respeita a liberdade do usuário, segundo o projeto, softwares pagos colocam os usuários sobre o poder dos desenvolvedores desses softwares.
 
@@ -37,14 +42,16 @@ Um software "livre" não necessáriamente é gratuito. O termo livre, refere-se 
 {{% /alert %}}
 
 ## 2) É Popular 
+![http://r4stats.com/articles/popularity/](popular.png)
 
-## 3) É poderoso!
-
-## 4) É flexível
+## 3) É versátil
 
 ## 5) É da comunidade
 
 ## Bônus
-O R é capaz de realizar tarefas que você nem imagina, por exemplo, esta postagem, este blog e o site **inteiro** foi produzido pelo R com a ajuda de diversos pacotes, como o [Blogdown]() e o [R Markdown](). Além do **RStudio**[^1] que facilita muito a nossa vida. Falarei dele em um próximo *post*.
+
+O R é capaz de realizar tarefas que você nem imagina, por exemplo, esta postagem, este blog e o site **inteiro** foi produzido pelo R com a ajuda de diversos pacotes, como o [Blogdown]() e o [R Markdown](). 
+
+Além do **RStudio**[^1] que facilita muito a nossa vida. Falarei dele em um próximo *post*.
 
 [^1]: É um software livre de ambiente de desenvolvimento integrado para R.
