@@ -5,7 +5,6 @@ date: '2020-03-16'
 slug: estabilidade_sis_din
 categories:
   - Community ecology
-  - Ecologia de comunidades
 tags:
   - sistemas_dinâmicos
   - crescimento logistico
