@@ -3,16 +3,15 @@ title: Manipulação de dados com dplyr
 author: Allan Alvarenga
 date: '2020-03-17'
 slug: dplyr
-draft: false
 categories:
   - data wrangling
-  - manipulação de dados
 tags:
   - dplyr
   - tidyverse
   - R
+  - Pt-br
 subtitle: ''
-summary: 'As operações mais comuns como adicionar colunas, filtrar dados ou criar um subconjunto de dados a partir de um conjunto maior podem ser realizadas através das funções *mutate*, *filter* e *select* respectivamente. Estãs estão contidas no pacote **dplyr**, que faz parte da coleção de pacotes **tidyverse**. Além disso, podemos utilizar o operador pipe %>% para enviar os resultados de uma função para outra.'
+summary: 'As operações mais comuns como adicionar colunas, filtrar dados ou criar um subconjunto de dados a partir de um conjunto maior podem ser realizadas através das funções *mutate*, *filter* e *select* respectivamente. Estãs estão contidas no pacote **dplyr**, que faz parte da coleção de pacotes **tidyverse**.'
 authors: []
 lastmod: '2020-03-17T12:38:34-03:00'
 featured: yes
@@ -24,78 +23,216 @@ projects: []
 ---
 
 
-* Para adicionar ou modificar um coluna na tabela de dados nós usamos a função mutate().
-
-* Para filtrar os dados, criando subconjuntos pelos valores das linhas utilizamos a função filter().
-
-* Para criar subconjuntos de dados selecionando colunas específicas, nós utilizamos a função select().
-
-* Nós podemos executar uma série de operações enviando os resultados de uma função para outra através do operador %>%.
-
-
-
-# Instalando e carregando o pacote dplyr
+## Instalando e carregando o pacote dplyr
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, results='hide'}
-# Instale o pacote caso ja não o tenha.
+# Instala o pacote.
 # install.packages("dplyr")
+
 # Carrega o pacote
 library(dplyr)
 ```
-Vamos usar a base de dados *"murders"* do pacote dslabs.
+
+Vamos usar a base de dados `"murders"` do pacote `dslabs`.
+
 ```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, results='hide'}
 
 library(dslabs)
 data("murders") 
 
 ```
+
 Vamos verificar o conteúdo do data frame:
+
 ```{r echo=TRUE}
 head(murders) 
 ```
-# Alterar ou adicionar colunas
 
-Com a função *mutate*, vamos adicionar uma nova coluna ao data frame:
+{{% alert note %}}
+A função `head()` retorna o início de um vetor, matriz, tabela, data frame ou função.
+{{% /alert %}}
+
+## **mutate** | Alterar ou adicionar colunas
+
 ```{r echo=TRUE, results='hide'}
 murders <- mutate(murders, rate = total / population * 100000)
 ```
-O data frame "murders" recebe uma nova coluna chamada "rate" que recebe o total dividido pela população e multiplicado por 100,0000.
 
-Agora conferimos se a nova coluna foi adicionada com a função `head` novamente:
+<p style="font-family: times, serif; font-size:11pt; font-style:italic; color: grey"> O data frame `"murders"` recebe uma nova coluna chamada `"rate"` que recebe o total de homicídios dividido pela população e multiplicado por 100,0000. </p>
+
+Veja que a nova coluna `rate` foi adicionada:
+
 ```{r echo=TRUE}
 head(murders) 
 ```
-E voilá!
 
-# Filtrar os dados
-
-A função `select` seleciona as colunas|variáveis.
+## **select** | Seleciona as colunas (variáveis)
 
 ```{r echo=TRUE}
 new_table <- select(murders, state, region, rate)
 head(new_table)
 ```
 
-A função `filter` seleciona as linhas|observações.
+<p style="font-family: times, serif; font-size:11pt; font-style:italic; color: grey"> Somente as variáveis `state`, `region` e `rate` do data frame `murders` foram selecionadas para compor o novo data frame chamado `new_table`. </p>
+
+## **filter** | Filtra as linhas (observações)
 
 ```{r}
 new_table_2 <-filter(new_table, rate <= 0.71)
-# Selecionamos somente as observações com taxas menores ou iguais a 0.71
 head(new_table_2)
 ```
 
-# Usando o pipe
+<p style="font-family: times, serif; font-size:11pt; font-style:italic; color: grey"> Selecionamos somente as observações com taxas (`rate`) menores ou iguais a 0.71. </p>
 
-O operador pipe facilita a leitura do código. Nós podemos escrever o código de uma maneira que ele pareça como uma descrição do que queremos fazer sem objetos intermediários:
+Nós podemos remover linhas usando o operador `!=`.
+```{r}
+no_florida <- filter(murders, state != "Florida")
+```
+<p style="font-family: times, serif; font-size:11pt; font-style:italic; color: grey"> `!=` seleciona todas as linhas com **exceção** daquelas com o nome `Florida`. </p>
 
-Dados originais $\rightarrow$ select $\rightarrow$ filter
+Nós podemos também usar `%in%` para filtrar com dplyr. Por exemplo, você pode ver os dados de Nova York e texas assim:
 
 ```{r}
-murders %>%
-  select(state, region, rate) %>%
-  filter(rate <= 0.71)
+NY_TX <- filter(murders, state %in% c("New York", "Texas"))
+head(NY_TX)
 ```
 
+## Filtrando com duas condicionais
+
+Suponha que você queira saber quais são os estados da região Nordeste (`Northeast`) que possuem uma população com mais de 500 mil pessoas. Note que você pode usar os operadores lógicos com a função `filter`:
+
+```{r}
+NE <- filter(murders, population > 5000000 & region == "Northeast")
+head(NE)
+```
+
+# Exercícios
+
+### Instruções
+
+```{r}
+# Note que para ranquear do maior para o menor valor você deve adicionar o sinal negativo.
+x <- c(88, 100, 83, 92, 94)
+rank(-x)
+```
+
+```{r, results='hide'}
+# Definindo a taxa de assassinatos:
+rate <-  murders$total/ murders$population * 100000
+rank(-rate)
+```
+
+```{r}
+# Add a coluna com a taxa de assassinatos
+murders <- mutate(murders, rate = total/population * 100000, rank = rank(-rate))
+
+```
+
+<p style="font-family: times, serif; font-size:12pt; font-style:italic; color: blue"> 1 - Redefina os dados de `murders` para incluir a coluna chamada `rank` com as taxas de assassinatos do maior para o menor valor. </p>
+
+<p style="font-family: times, serif; font-size:12pt; font-style:italic; color: blue"> 2 - Use `select` para mostrar somente os nomes e abreviações dos estados de `murders`. Defina um novo objeto chamado `state_abb`. </p>
+
+<p style="font-family: times, serif; font-size:12pt; font-style:italic; color: blue"> 3 - Crie um novo data frame chamado `murders_nw` somente com os estados do nordeste e oeste `northeast` e `west`, respectivamente. Quantos estados existem nessas regiões (linhas)? </p>
+
+<p style="font-family: times, serif; font-size:12pt; font-style:italic; color: blue"> 4 - Filtre os dados para que apresentem os 5 estados com maiores taxas de assassinatos. Não se esqueça de adicionar a coluna `rate`. </p>
+
+<p style="font-family: times, serif; font-size:12pt; font-style:italic; color: blue"> 5 - Crie um novo data frame chamado `no_south` que remove os estados da região Sul.  Quantos estados estão nessa categoria? Nós podemos usar a função `nrow()` pra isso.</p>
+
+<p style="font-family: times, serif; font-size:12pt; font-style:italic; color: blue"> 6 - Suponha que você queira viver no Nordeste ou Oeste e quer que a taxa de assassinatos seja menor que 1. Crie um novo data frame chamado `my_states` com os dados dos estados que satisfaçam essas opções. Use `select` para mostrar somente os nomes dos estados (`state`), a taxa de assassinatos (`rate`)e o `rank`.</p>
+
+## Respostas
+
+1 -
+```{r}
+murders <- mutate(murders, rank = rank(-rate))
+
+# ou com pipe:
+murders <-
+  murders %>%
+  mutate(rank = rank(-rate))
+```
+
+2 -
+```{r}
+state_abb <- select(murders, state, abb)
+
+# ou com pipe:
+state_abb <-
+murders %>%
+select(state, abb) 
+
+head(state_abb)
+```
+
+3 - 
+```{r}
+murders_nw <- filter(murders, region %in% c("Northeast", "West"))
+
+nrow(murders_nw)
+```
+4 -
+```{r}
+filter(murders, rank<=5)
+
+# ou com pipe:
+murders %>%
+  filter(rank <= 5)
+```
+5 -
+```{r}
+# Use filter para criar o data frame "no_south".
+no_south<-filter(murders,region != "South")
+# Use nrow() para calcular o número de linhas (observações).
+nrow(no_south)
+```
+6 -
+```{r}
+# adiciona a coluna de taxas de homicídios.
+murders <- mutate(murders, rate =  total / population * 100000, rank = rank(-rate))
+
+# cria os dados chamados `my_states`, que satizfaz as duas condições.
+my_states <- filter(murders, region %in% c("Northeast", "West") & rate < 1)
+
+# Use select para mostrar apenas o nome do estado, a taxa de assassinatos e o rank.
+select(my_states, state, rate, rank)
+
+# ou com pipe:
+my_states <-
+murders %>%
+  mutate(rate = total / population * 100000, rank = rank(-rate))%>%
+  filter(region %in% c("Northeast", "West") & rate < 1)%>%
+  select(state, rate, rank)
+```
+
+
+# Resumo
+
+* Para adicionar ou modificar um coluna na tabela de dados nós usamos a função mutate().
+
+* Para filtrar os dados, criando subconjuntos pelos valores das linhas utilizamos a função filter().
+
+* Para criar subconjuntos de dados selecionando colunas específicas, nós utilizamos a função select().
+
 {{% alert note %}}
-Note que nós podemos escrever `population` ao invés de `murders$population`. A função mutate sabe que queremos as colunas do data frame murders.
+
+### Atalhos
+No **Rstudio:**
+
+* **crtl + alt + i** Cria um novo chunk [^1] no Rmarkdown
+
+* **crtl + shift + a** Reindenta o código
+
+* **crtl + shift + c** # Comenta a linha do código
+
+* **crtl + shift + m** cria o pipe `%>%` 
+
+* **alt -** cria o símbolo `<-` no chunk ou `=` fora do chunk
+
+[^1]: Trecho de código
+
 {{% /alert %}}
+
+Esse tutorial é baseado (modificado/traduzido) no livro do professor Rafael A. Irizarry "**Introduction to Data Science**" que pode ser obtido de forma gratuita [aqui](https://leanpub.com/datasciencebook).
+O livro é utilizado no curso [Data Science: R Basics](https://courses.edx.org/courses/course-v1:HarvardX+PH125.1x+1T2020/course/) da plataforma edx oferecido pela universidade de Harvard.
+Esse tutorial está sob licença *Creative Commons Attribution-ShareAlike 4.0 Licença internacional.*
+![creative](creative.png) Para ver uma cópia dessa licença acesse [aqui](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt_BR)
